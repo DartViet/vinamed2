@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar_viewmodel.dart';
+import 'package:ltdmed/named_routes.dart';
 
 class FAppbar extends StatefulWidget implements PreferredSizeWidget {
   const FAppbar({super.key});
@@ -22,6 +23,20 @@ class FAppbarState extends State<FAppbar> {
         return AppBar(
           title: Center(child: Text(AppbarViewmodel.instance.title)),
           actions: <Widget>[
+            Navigator.canPop(context)
+                ? IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+                : Container(),
+            IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.pushNamed(context, NamedRoutes.home);
+              },
+            ),
             PopupMenuButton(
               icon: const Icon(Icons.translate),
               onSelected: (String lang) {

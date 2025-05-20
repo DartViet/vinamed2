@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/drawer/drawer.dart';
+import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   getCard(
                     HomeViewModel.instance.userInfo,
-                    "/userInfo",
+                    NamedRoutes.userInfo,
                     Icons.person,
                   ),
                   getCard(

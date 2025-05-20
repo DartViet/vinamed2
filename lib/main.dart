@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar_viewmodel.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home.dart';
+import 'package:ltdmed/pages/user_info/user_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       routes: <String, WidgetBuilder>{
         NamedRoutes.home: (BuildContext context) => HomePage(),
+        NamedRoutes.userInfo: (BuildContext context) => UserInfo(),
       },
     );
   }
