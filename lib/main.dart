@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar_viewmodel.dart';
+import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home.dart';
 
 void main() async {
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Trung Tâm Y Tế Trực Tuyến',
+      title: "Vinamed - 07SI",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(),
       routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => const HomePage(),
+        NamedRoutes.home: (BuildContext context) => HomePage(),
       },
     );
   }

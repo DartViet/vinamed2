@@ -35,14 +35,7 @@ class LangUtility {
 class LangVar {
   static String en = "en";
   static String vi = "vi";
-  static String fr = "fr";
-  static String ja = "ja";
-  static String ko = "ko";
   static String zh = "zh";
-  static String ru = "ru";
-  static String lo = "lo";
-  static String kh = "kh";
-  static String th = "th";
 
   static const String title = "title";
   static const String userInfo = "userInfo";

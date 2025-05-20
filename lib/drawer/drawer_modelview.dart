@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar_viewmodel.dart';
 import 'package:ltdmed/l10n/langvar.dart';
+import 'package:ltdmed/models/base_model.dart';
 
-class DrawerModelView with ChangeNotifier {
+class DrawerModelView with ChangeNotifier implements BaseModel {
   static DrawerModelView? _instance;
   static DrawerModelView get instance {
     _instance ??= DrawerModelView();
@@ -89,6 +90,7 @@ class DrawerModelView with ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   Future<void> changeLang(String lang) async {
     _userInfo = await LangUtility.getString(LangVar.userInfo, lang);
     _healthRecord = await LangUtility.getString(LangVar.healthRecord, lang);
