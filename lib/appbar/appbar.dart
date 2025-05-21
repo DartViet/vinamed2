@@ -34,7 +34,11 @@ class FAppbarState extends State<FAppbar> {
             IconButton(
               icon: const Icon(Icons.home),
               onPressed: () {
-                Navigator.pushNamed(context, NamedRoutes.home);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  NamedRoutes.home,
+                  (Route<dynamic> route) => false,
+                );
               },
             ),
             PopupMenuButton(
