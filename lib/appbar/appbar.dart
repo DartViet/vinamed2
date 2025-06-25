@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar_viewmodel.dart';
+import 'package:ltdmed/models/user/user_model.dart';
 import 'package:ltdmed/named_routes.dart';
 
 class FAppbar extends StatefulWidget implements PreferredSizeWidget {
-  const FAppbar({super.key});
+  const FAppbar({super.key, this.hideUserIcon = false});
+
+  final bool hideUserIcon;
 
   @override
   State<StatefulWidget> createState() {
@@ -23,24 +26,19 @@ class FAppbarState extends State<FAppbar> {
         return AppBar(
           title: Center(child: Text(AppbarViewmodel.instance.title)),
           actions: <Widget>[
-            Navigator.canPop(context)
-                ? IconButton(
-                  icon: const Icon(Icons.arrow_back),
+            widget.hideUserIcon
+                ? Container()
+                : IconButton(
+                  icon: const Icon(Icons.person),
                   onPressed: () {
-                    Navigator.pop(context);
+                    if (UserModel.instance.email.isNotEmpty) {
+                      Navigator.pushNamed(context, NamedRoutes.userInfo);
+                    } else {
+                      Navigator.pushNamed(context, NamedRoutes.login);
+                    }
                   },
-                )
-                : Container(),
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  NamedRoutes.home,
-                  (Route<dynamic> route) => false,
-                );
-              },
-            ),
+                ),
+
             PopupMenuButton(
               icon: const Icon(Icons.translate),
               onSelected: (String lang) {

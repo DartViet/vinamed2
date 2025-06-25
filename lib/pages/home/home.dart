@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/drawer/drawer.dart';
+import 'package:ltdmed/goodies/language_service.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home_viewmodel.dart';
 
@@ -35,7 +36,10 @@ class _HomePageState extends State<HomePage> {
       appBar: FAppbar(),
       drawer: FDrawer().getDrawer(context),
       body: ListenableBuilder(
-        listenable: HomeViewModel.instance,
+        listenable: Listenable.merge([
+          HomeViewModel.instance,
+          LanguageService.instance,
+        ]),
         builder: (context, child) {
           return Center(
             child: SizedBox(
@@ -48,22 +52,22 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(10),
                 children: <Widget>[
                   getCard(
-                    HomeViewModel.instance.userInfo,
+                    LanguageService.instance.userInfo,
                     NamedRoutes.userInfo,
                     Icons.person,
                   ),
                   getCard(
-                    HomeViewModel.instance.healthRecord,
+                    LanguageService.instance.healthRecord,
                     "/home",
                     Icons.home,
                   ),
                   getCard(
-                    HomeViewModel.instance.healthRecord,
+                    LanguageService.instance.healthRecord,
                     "/healthRecord",
                     Icons.health_and_safety,
                   ),
                   getCard(
-                    HomeViewModel.instance.admin,
+                    LanguageService.instance.admin,
                     "/admin",
                     Icons.admin_panel_settings,
                   ),

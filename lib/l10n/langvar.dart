@@ -45,4 +45,36 @@ class LangVar {
   static const String homePage = "homePage";
   static const String commonLogin = "commonLogin";
   static const String commonLogout = "commonLogout";
+
+  static const String signUp = "signUp";
+  static const String signIn = "signIn";
+  static const String forgotPassword = "forgotPassword";
+  static const String passwordNotCorrect = "passwordNotCorrect";
+  static const String email = "email";
+  static const String password = "password";
+  static const String signinpageWelcome = "signinpageWelcome";
+
+  static const String signupCreateAccount = "signupCreateAccount";
+  static const String signupConfirmPassword = "signupConfirmPassword";
+  static const String emailNotValid = "emailNotValid";
+  static const String passwordNotValid = "passwordNotValid";
+  static const String confirmPasswordNotValid = "confirmPasswordNotValid";
+  static const String close = "close";
+  static const String userAccountCreated = "userAccountCreated";
+
+  static const String userInfoFullName = "userInfoFullName";
+  static const String userInfoPhoneNumber = "userInfoPhoneNumber";
+  static const String userInfoAddress = "userInfoAddress";
+  static const String userInfoDateOfBirth = "userInfoDateOfBirth";
+  static const String userInfoGender = "userInfoGender";
+  static const String male = "male";
+  static const String female = "female";
+  static const String userInfoDateIssued = "userInfoDateIssued";
+  static const String userInfoPlaceIssued = "userInfoPlaceIssued";
+  static const String userInfoCCCD = "userInfoCCCD";
+  static const String userInfoCMND = "userInfoCMND";
+  static const String userInfoTitle = "userInfoTitle";
+  static const String userInfoSelectDate = "userInfoSelectDate";
+  static const String userInfoScanIDQRCode = "userInfoScanIDQRCode";
+  static const String qrscanScanning = "qrscanScanning";
 }

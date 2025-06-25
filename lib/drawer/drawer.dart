@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/drawer/drawer_modelview.dart';
+import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/named_routes.dart';
 
 class FDrawer {
   Drawer? _drawer;
@@ -12,7 +14,10 @@ class FDrawer {
     }
     _drawer = Drawer(
       child: ListenableBuilder(
-        listenable: DrawerModelView.instance,
+        listenable: Listenable.merge([
+          DrawerModelView.instance,
+          LanguageService.instance,
+        ]),
         builder: (context, child) {
           return ListView(
             padding: EdgeInsets.zero,
@@ -27,35 +32,35 @@ class FDrawer {
               ),
               ListTile(
                 leading: const Icon(Icons.home),
-                title: Text(DrawerModelView.instance.homePage),
+                title: Text(LanguageService.instance.homePage),
                 onTap: () {
-                  // Handle home action
+                  Navigator.pushNamed(context, NamedRoutes.home);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.person),
-                title: Text(DrawerModelView.instance.userInfo),
+                title: Text(LanguageService.instance.userInfo),
                 onTap: () {
-                  // Handle user info action
+                  Navigator.pushNamed(context, NamedRoutes.userInfo);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.health_and_safety),
-                title: Text(DrawerModelView.instance.healthRecord),
+                title: Text(LanguageService.instance.healthRecord),
                 onTap: () {
                   // Handle health record action
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.group),
-                title: Text(DrawerModelView.instance.staff),
+                title: Text(LanguageService.instance.staff),
                 onTap: () {
                   // Handle staff action
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.admin_panel_settings),
-                title: Text(DrawerModelView.instance.admin),
+                title: Text(LanguageService.instance.admin),
                 onTap: () {
                   // Handle admin action
                 },
@@ -64,8 +69,11 @@ class FDrawer {
               SizedBox(height: 10),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(DrawerModelView.instance.login),
+                  onPressed: () {
+                    Scaffold.of(context).closeDrawer();
+                    Navigator.pushNamed(context, NamedRoutes.login);
+                  },
+                  child: Text(LanguageService.instance.login),
                 ),
               ),
             ],
