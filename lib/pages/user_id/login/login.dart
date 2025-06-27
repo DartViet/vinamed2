@@ -50,9 +50,14 @@ class LoginState extends State<Login> {
                   padding: const EdgeInsets.all(16.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 64),
+                        Icon(
+                          Icons.health_and_safety_sharp,
+                          size: 96,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        const SizedBox(height: 16),
                         Center(
                           child: Text(
                             LanguageService.instance.welcome,
