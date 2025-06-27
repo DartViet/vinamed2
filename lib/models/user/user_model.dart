@@ -1,14 +1,17 @@
+import 'package:ltdmed/goodies/server_ip.dart';
+
 class UserModel {
-  final String avatar;
-  final String collectionId;
-  final String collectionName;
-  final DateTime created;
-  final String email;
-  final bool emailVisibility;
-  final String id;
-  final String name;
-  final DateTime updated;
-  final bool verified;
+  String avatar;
+  String collectionId;
+  String collectionName;
+  DateTime created;
+  String email;
+  bool emailVisibility;
+  String id;
+  String name;
+  DateTime updated;
+  bool verified;
+  String userProfileCollection = 'user_profile';
 
   static UserModel? _instance;
 
@@ -80,5 +83,17 @@ class UserModel {
       'updated': updated.toIso8601String(),
       'verified': verified,
     };
+  }
+
+  Future<void> getUserInfo(String userId) async {
+    pb
+        .collection('users')
+        .getOne(userId)
+        .then((value) {
+          UserModel.fromJson(value.toJson());
+        })
+        .catchError((error) {
+          throw Exception('Failed to fetch user info: $error');
+        });
   }
 }

@@ -19,6 +19,7 @@ class UserInfo extends StatefulWidget {
   final TextEditingController cccdNumberController = TextEditingController();
   final TextEditingController cmndNumberController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
 
   @override
   State<StatefulWidget> createState() {
@@ -39,30 +40,46 @@ class UserInfoState extends State<UserInfo> {
     // Initialize the email controller with the user's email
     widget.emailController.text = UserModel.instance.email;
 
-    if (CitizenInfo.instance.cccdNumber.isNotEmpty) {
-      widget.cccdNumberController.text = CitizenInfo.instance.cccdNumber;
-      widget.fullNameController.text = CitizenInfo.instance.fullName;
-      widget.cmndNumberController.text = CitizenInfo.instance.cmndNumber;
-      birthDate = CitizenInfo.instance.dateOfBirth;
-      if (CitizenInfo.instance.gender == "Nữ") {
+    if (UserProfileModel.instance.cccdnumber.isNotEmpty) {
+      widget.cccdNumberController.text = UserProfileModel.instance.cccdnumber;
+      widget.fullNameController.text = UserProfileModel.instance.fullname;
+      widget.cmndNumberController.text = UserProfileModel.instance.cmndnumber;
+      widget.emailController.text = UserModel.instance.email;
+      birthDate = UserProfileModel.instance.dateofbirth.isNotEmpty ? DateTime.parse(UserProfileModel.instance.dateofbirth) : null;
+      issuedDate = UserProfileModel.instance.dateofissued.isNotEmpty ? DateTime.parse(UserProfileModel.instance.dateofissued) : null;
+      if (UserProfileModel.instance.gender == "Nữ") {
         gender = "female";
       } else {
         gender = "male";
       }
-      widget.addressController.text = CitizenInfo.instance.placeOfLiving;
-      UserProfileModel.clear();
+      widget.addressController.text = UserProfileModel.instance.address;
+      widget.phoneNumberController.text = UserProfileModel.instance.phonenumber;
+      isEditMode = false;
+    } else if (CitizenCardInfo.instance.cccdNumber.isNotEmpty) {
+      widget.cccdNumberController.text = CitizenCardInfo.instance.cccdNumber;
+      widget.fullNameController.text = CitizenCardInfo.instance.fullName;
+      widget.cmndNumberController.text = CitizenCardInfo.instance.cmndNumber;
+      widget.emailController.text = UserModel.instance.email;
+      birthDate = CitizenCardInfo.instance.dateOfBirth;
+      issuedDate = CitizenCardInfo.instance.dateOfIssued;
+      if (CitizenCardInfo.instance.gender == "Nữ") {
+        gender = "female";
+      } else {
+        gender = "male";
+      }
+      widget.addressController.text = CitizenCardInfo.instance.placeOfLiving;
+      isEditMode = true;
+      // ONLY USED ONCE
+      CitizenCardInfo.clear();
+    } else {
+      isEditMode = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     Future<DateTime?> selectDate() async {
-      return await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1800),
-        lastDate: DateTime.now(),
-      );
+      return await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1800), lastDate: DateTime.now());
     }
 
     void birthDateSelect() async {
@@ -79,268 +96,198 @@ class UserInfoState extends State<UserInfo> {
       appBar: FAppbar(hideUserIcon: true),
       drawer: FDrawer().getDrawer(context),
       body: ListenableBuilder(
-        listenable: Listenable.merge([
-          UserInfoModelView.instance,
-          LanguageService.instance,
-        ]),
+        listenable: Listenable.merge([UserInfoModelView.instance, LanguageService.instance]),
         builder: (context, child) {
           return Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 16,
-                  children: [
-                    Row(
+              padding: const EdgeInsets.fromLTRB(16, 64, 16, 64),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 16,
                       children: [
-                        Text(
-                          LanguageService.instance.userInfoTitle,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Expanded(child: Container()),
-                        IconButton(
-                          icon:
-                              isEditMode
-                                  ? const Icon(Icons.edit)
-                                  : const Icon(Icons.edit_off),
-                          onPressed: () {
-                            isEditMode = !isEditMode;
-                            setState(() {});
-                            // Handle edit action
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.save),
-                          onPressed:
-                              isEditMode
-                                  ? () {
-                                    if (!_formKey.currentState!.validate() ||
-                                        issuedDate == null ||
-                                        birthDate == null) {
-                                      return; // If the form is not valid, do not proceed
-                                    }
-                                    UserProfileModel.instance.address =
-                                        widget.addressController.text;
-                                    UserProfileModel.instance.fullname =
-                                        widget.fullNameController.text;
-                                    UserProfileModel.instance.cccdnumber =
-                                        widget.cccdNumberController.text;
-                                    UserProfileModel.instance.cmndnumber =
-                                        widget.cmndNumberController.text;
-                                    UserProfileModel.instance.dateofissued =
-                                        issuedDate?.toIso8601String() ?? '';
-                                    UserProfileModel.instance.dateofbirth =
-                                        birthDate?.toIso8601String() ?? '';
-                                    UserProfileModel.instance.gender = gender;
-                                    UserProfileModel.instance.phonenumber =
-                                        widget.emailController.text;
-                                    UserProfileModel.instance.userId =
-                                        UserModel.instance.id;
-                                    UserProfileModel.instance
-                                        .save()
-                                        .then((_) {
-                                          UserProfileModel.clear();
-                                          showFSnackBar(
-                                            context,
-                                            "Saved successfully",
-                                          );
-                                          Navigator.pushNamed(
-                                            context,
-                                            NamedRoutes.home,
-                                          );
-                                        })
-                                        .catchError((error) {
-                                          showFSnackBar(
-                                            context,
-                                            "Error saving user profile: $error",
-                                          );
-                                        });
-
-                                    // Handle save action
+                        Icon(Icons.health_and_safety_sharp, size: 96, color: Theme.of(context).primaryColor),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Text(LanguageService.instance.userInfoTitle, style: Theme.of(context).textTheme.titleLarge),
+                            Expanded(child: Container()),
+                            IconButton(
+                              icon: isEditMode ? const Icon(Icons.save) : const Icon(Icons.edit),
+                              onPressed: () {
+                                if (isEditMode) {
+                                  if (_formKey.currentState?.validate() == false) {
+                                    showFSnackBar(context, LanguageService.instance.saveSuccess);
+                                    return;
                                   }
-                                  : null,
-                        ),
-                      ],
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return LanguageService
-                              .instance
-                              .userInfoFullNameNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      controller: widget.fullNameController,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.fullName,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return LanguageService.instance.userInfoCCCDNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      controller: widget.cccdNumberController,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.cccdNumber,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(LanguageService.instance.dateOfIssue),
-                        TextButton(
-                          onPressed: isEditMode ? issuedDateSelect : null,
-                          child: Text(
-                            issuedDate == null
-                                ? LanguageService.instance.selecteDate
-                                : '${issuedDate!.day}/${issuedDate!.month}/${issuedDate!.year}',
-                          ),
-                        ),
-                      ],
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return LanguageService.instance.userInfoCMNDNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      controller: widget.cmndNumberController,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.cmndNumber,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
 
-                    Row(
-                      children: [
-                        Text(LanguageService.instance.dateOfBirth),
-                        TextButton(
-                          onPressed: isEditMode ? birthDateSelect : null,
-                          child: Text(
-                            birthDate == null
-                                ? LanguageService.instance.selecteDate
-                                : '${birthDate!.day}/${birthDate!.month}/${birthDate!.year}',
-                          ),
-                        ),
-                      ],
-                    ),
+                                  UserProfileModel.instance.address = widget.addressController.text;
+                                  UserProfileModel.instance.fullname = widget.fullNameController.text;
+                                  UserProfileModel.instance.cccdnumber = widget.cccdNumberController.text;
+                                  UserProfileModel.instance.cmndnumber = widget.cmndNumberController.text;
+                                  UserProfileModel.instance.dateofissued = issuedDate?.toIso8601String() ?? '';
+                                  UserProfileModel.instance.dateofbirth = birthDate?.toIso8601String() ?? '';
+                                  UserProfileModel.instance.gender = gender;
+                                  UserProfileModel.instance.phonenumber = widget.phoneNumberController.text;
+                                  UserProfileModel.instance.userId = UserModel.instance.id;
+                                  UserProfileModel.instance
+                                      .save()
+                                      .then((_) {
+                                        showFSnackBar(context, LanguageService.instance.saveSuccess);
+                                        Navigator.pushNamed(context, NamedRoutes.home);
+                                      })
+                                      .catchError((error) {
+                                        showFSnackBar(context, "Error saving user profile: $error");
+                                        return;
+                                      });
+                                }
 
-                    Row(
-                      children: [
-                        Text("${LanguageService.instance.gender}: "),
-                        DropdownButton<String>(
-                          value: gender,
-                          items: [
-                            DropdownMenuItem(
-                              value: "male",
-                              child: Text(LanguageService.instance.male),
-                            ),
-                            DropdownMenuItem(
-                              value: "female",
-                              child: Text(LanguageService.instance.female),
+                                isEditMode = !isEditMode;
+
+                                setState(() {});
+                                // Handle edit action
+                              },
                             ),
                           ],
-                          onChanged:
-                              isEditMode
-                                  ? (value) {
-                                    gender = value ?? gender;
-                                    setState(() {});
-                                  }
-                                  : null,
                         ),
-                      ],
-                    ),
-
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            !isValidEmail(value)) {
-                          return LanguageService.instance.emailNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      controller: widget.emailController,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.email,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return LanguageService
-                              .instance
-                              .userInfoAddressNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      controller: widget.addressController,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.address,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null ||
-                            value.trim().isEmpty ||
-                            !RegExp(r'^\d{10,11}$').hasMatch(value)) {
-                          return LanguageService
-                              .instance
-                              .userInfoPhoneNumberNotValid;
-                        }
-                        return null;
-                      },
-                      enabled: isEditMode,
-                      decoration: InputDecoration(
-                        labelText: LanguageService.instance.phoneNumber,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    Theme.of(context).platform == TargetPlatform.iOS ||
-                            Theme.of(context).platform == TargetPlatform.android
-                        ? Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                NamedRoutes.qrCodeScanner,
-                              );
-                            },
-                            child: SizedBox(
-                              width: 200,
-                              child: Row(
-                                spacing: 32,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.qr_code_scanner),
-                                  Text(
-                                    LanguageService
-                                        .instance
-                                        .userInfoScanIDQRCode,
-                                  ),
-                                ],
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return LanguageService.instance.userInfoFullNameNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: isEditMode,
+                          controller: widget.fullNameController,
+                          decoration: InputDecoration(labelText: LanguageService.instance.fullName, border: OutlineInputBorder()),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return LanguageService.instance.userInfoCCCDNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: isEditMode,
+                          controller: widget.cccdNumberController,
+                          decoration: InputDecoration(labelText: LanguageService.instance.cccdNumber, border: OutlineInputBorder()),
+                        ),
+                        Row(
+                          children: [
+                            Text(LanguageService.instance.dateOfIssue),
+                            TextButton(
+                              onPressed: isEditMode ? issuedDateSelect : null,
+                              child: Text(
+                                issuedDate == null ? LanguageService.instance.selecteDate : '${issuedDate!.day}/${issuedDate!.month}/${issuedDate!.year}',
                               ),
                             ),
-                          ),
-                        )
-                        : Container(),
-                  ],
+                          ],
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return LanguageService.instance.userInfoCMNDNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: isEditMode,
+                          controller: widget.cmndNumberController,
+                          decoration: InputDecoration(labelText: LanguageService.instance.cmndNumber, border: OutlineInputBorder()),
+                        ),
+
+                        Row(
+                          children: [
+                            Text(LanguageService.instance.dateOfBirth),
+                            TextButton(
+                              onPressed: isEditMode ? birthDateSelect : null,
+                              child: Text(
+                                birthDate == null ? LanguageService.instance.selecteDate : '${birthDate!.day}/${birthDate!.month}/${birthDate!.year}',
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            Text("${LanguageService.instance.gender}: "),
+                            DropdownButton<String>(
+                              value: gender,
+                              items: [
+                                DropdownMenuItem(value: "male", child: Text(LanguageService.instance.male)),
+                                DropdownMenuItem(value: "female", child: Text(LanguageService.instance.female)),
+                              ],
+                              onChanged:
+                                  isEditMode
+                                      ? (value) {
+                                        gender = value ?? gender;
+                                        setState(() {});
+                                      }
+                                      : null,
+                            ),
+                          ],
+                        ),
+
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty || !isValidEmail(value)) {
+                              return LanguageService.instance.emailNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: false,
+                          controller: widget.emailController,
+                          decoration: InputDecoration(labelText: LanguageService.instance.email, border: OutlineInputBorder()),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return LanguageService.instance.userInfoAddressNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: isEditMode,
+                          controller: widget.addressController,
+                          decoration: InputDecoration(labelText: LanguageService.instance.address, border: OutlineInputBorder()),
+                        ),
+
+                        TextFormField(
+                          controller: widget.phoneNumberController,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty || !RegExp(r'^\d{10,11}$').hasMatch(value)) {
+                              return LanguageService.instance.userInfoPhoneNumberNotValid;
+                            }
+                            return null;
+                          },
+                          enabled: isEditMode,
+                          decoration: InputDecoration(labelText: LanguageService.instance.phoneNumber, border: OutlineInputBorder()),
+                        ),
+                        Theme.of(context).platform == TargetPlatform.iOS || Theme.of(context).platform == TargetPlatform.android
+                            ? Center(
+                              child: ElevatedButton(
+                                onPressed:
+                                    isEditMode
+                                        ? () {
+                                          Navigator.pushNamed(context, NamedRoutes.qrCodeScanner);
+                                        }
+                                        : null,
+                                child: SizedBox(
+                                  width: 200,
+                                  child: Row(
+                                    spacing: 32,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [Icon(Icons.qr_code_scanner), Text(LanguageService.instance.userInfoScanIDQRCode)],
+                                  ),
+                                ),
+                              ),
+                            )
+                            : Container(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -10,6 +10,7 @@ class UserProfileModel {
   String address;
   String phonenumber;
   String gender;
+  String id;
   String dbName = 'user_profile';
 
   static UserProfileModel? _instance;
@@ -24,12 +25,14 @@ class UserProfileModel {
     required this.address,
     required this.phonenumber,
     required this.gender,
+    required this.id,
   });
 
   static UserProfileModel get instance {
-    if (_instance == null) {
-      initialize({});
+    if (_instance != null) {
+      return _instance!;
     }
+    UserProfileModel.initialize({});
     return _instance!;
   }
 
@@ -44,6 +47,7 @@ class UserProfileModel {
       address: json['address'] ?? '',
       phonenumber: json['phonenumber'] ?? '',
       gender: json['gender'] ?? '',
+      id: json['id'] ?? '',
     );
   }
 
@@ -58,6 +62,7 @@ class UserProfileModel {
       address: json['address'] ?? '',
       phonenumber: json['phonenumber'] ?? '',
       gender: json['gender'] ?? '',
+      id: json['id'] ?? '',
     );
     return _instance!;
   }
@@ -81,23 +86,13 @@ class UserProfileModel {
   }
 
   Future<void> save() async {
-    await PocketBaseServer.instance.updateItem(
-      dbName,
-      UserProfileModel.instance.userId,
-      toJson(),
-    );
+    await PocketBaseServer.instance.recordExistsByFilter(dbName, 'userId="$userId"')
+        ? PocketBaseServer.instance.updateItem(dbName, id, toJson())
+        : PocketBaseServer.instance.createItem(dbName, toJson());
+  }
+
+  Future<void> getUserProfile(String userId) async {
+    final record = await pb.collection(dbName).getFirstListItem('userId="$userId"');
+    UserProfileModel.initialize(record.toJson());
   }
 }
-
-// example create body
-final body = <String, dynamic>{
-  "userId": "test",
-  "fullname": "test",
-  "cccdnumber": "test",
-  "cmndnumber": "test",
-  "dateofbirth": "test",
-  "dateofissued": "test",
-  "address": "test",
-  "phonenumber": "test",
-  "gender": "test",
-};

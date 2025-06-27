@@ -11,8 +11,7 @@ class LoginModelView with ChangeNotifier implements BaseModel {
   }
 
   Future<void> init() async {
-    String currentLang =
-        AppbarViewmodel.instance.currentLang; // Default language
+    String currentLang = AppbarViewmodel.instance.currentLang; // Default language
     await _changeLang(currentLang);
 
     _instance = this;

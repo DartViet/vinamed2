@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:ltdmed/drawer/drawer_modelview.dart';
 import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/named_routes.dart';
 
 class FDrawer {
@@ -14,10 +17,7 @@ class FDrawer {
     }
     _drawer = Drawer(
       child: ListenableBuilder(
-        listenable: Listenable.merge([
-          DrawerModelView.instance,
-          LanguageService.instance,
-        ]),
+        listenable: Listenable.merge([DrawerModelView.instance, LanguageService.instance]),
         builder: (context, child) {
           return ListView(
             padding: EdgeInsets.zero,
@@ -69,11 +69,15 @@ class FDrawer {
               SizedBox(height: 10),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Scaffold.of(context).closeDrawer();
-                    Navigator.pushNamed(context, NamedRoutes.login);
+                    await PocketBaseServer.instance.logoutUser();
+                    while (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Navigator.pushReplacementNamed(context, NamedRoutes.login);
                   },
-                  child: Text(LanguageService.instance.login),
+                  child: Text(LanguageService.instance.logout),
                 ),
               ),
             ],

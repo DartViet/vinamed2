@@ -1,4 +1,4 @@
-class CitizenInfo {
+class CitizenCardInfo {
   final String cccdNumber;
   final String cmndNumber;
   final String fullName;
@@ -7,9 +7,9 @@ class CitizenInfo {
   final String placeOfLiving;
   final DateTime dateOfIssued;
 
-  static CitizenInfo? _instance;
+  static CitizenCardInfo? _instance;
 
-  CitizenInfo._({
+  CitizenCardInfo._({
     required this.cccdNumber,
     required this.cmndNumber,
     required this.fullName,
@@ -19,38 +19,28 @@ class CitizenInfo {
     required this.dateOfIssued,
   });
 
-  static CitizenInfo get instance {
+  static CitizenCardInfo get instance {
     if (_instance == null) {
-      fromBarcodeString(
-        "| | | | | |",
-      ); // Placeholder to ensure instance is created
+      fromBarcodeString("| | | | | |"); // Placeholder to ensure instance is created
     }
     return _instance!;
   }
 
-  static CitizenInfo fromBarcodeString(String barcodeData) {
+  static CitizenCardInfo fromBarcodeString(String barcodeData) {
     final parts = barcodeData.split('|');
 
     if (parts.length != 7) {
-      throw ArgumentError(
-        'Invalid barcode format. Expected 7 parts separated by "|"',
-      );
+      throw ArgumentError('Invalid barcode format. Expected 7 parts separated by "|"');
     }
 
-    _instance = CitizenInfo._(
+    _instance = CitizenCardInfo._(
       cccdNumber: parts[0].trim(),
       cmndNumber: parts[1].trim(),
       fullName: parts[2].trim(),
-      dateOfBirth:
-          parts[3].trim().isEmpty
-              ? DateTime.now()
-              : _parseDate(parts[3].trim()),
+      dateOfBirth: parts[3].trim().isEmpty ? DateTime.now() : _parseDate(parts[3].trim()),
       gender: parts[4].trim(),
       placeOfLiving: parts[5].trim(),
-      dateOfIssued:
-          parts[6].trim().isEmpty
-              ? DateTime.now()
-              : _parseDate(parts[6].trim()),
+      dateOfIssued: parts[6].trim().isEmpty ? DateTime.now() : _parseDate(parts[6].trim()),
     );
 
     return _instance!;

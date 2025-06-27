@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/citizen_info_service.dart';
 import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/models/user/user_profile_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -20,23 +21,16 @@ class _MobileScannerSimpleState extends State<MobileScannerSimple> {
 
   Widget _barcodePreview(Barcode? value) {
     if (value == null || value.displayValue == null) {
-      return Text(
-        LanguageService.instance.qrscanScanning,
-        overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white),
-      );
+      return Text(LanguageService.instance.qrscanScanning, overflow: TextOverflow.fade, style: TextStyle(color: Colors.white));
     }
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      CitizenInfo.fromBarcodeString(value.displayValue!);
+      CitizenCardInfo.fromBarcodeString(value.displayValue!);
+      UserProfileModel.clear();
       Navigator.pushNamed(context, NamedRoutes.userInfo);
     });
 
-    return Text(
-      value.displayValue ?? 'No display value.',
-      overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white),
-    );
+    return Text(value.displayValue ?? 'No display value.', overflow: TextOverflow.fade, style: const TextStyle(color: Colors.white));
   }
 
   void _handleBarcode(BarcodeCapture barcodes) {
@@ -64,12 +58,7 @@ class _MobileScannerSimpleState extends State<MobileScannerSimple> {
                   alignment: Alignment.bottomCenter,
                   height: 100,
                   color: const Color.fromRGBO(0, 0, 0, 0.4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(child: Center(child: _barcodePreview(_barcode))),
-                    ],
-                  ),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Expanded(child: Center(child: _barcodePreview(_barcode)))]),
                 ),
               ),
             ],
