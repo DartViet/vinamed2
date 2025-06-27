@@ -9,6 +9,18 @@ import 'package:ltdmed/pages/user_id/login/login.dart';
 import 'package:ltdmed/pages/user_id/sign_up/sign_up.dart';
 import 'package:ltdmed/pages/user_info/user_info.dart';
 
+const lightColorScheme = ColorScheme(
+  brightness: Brightness.light,
+  primary: Colors.black, // Or a light shade like Colors.grey[200]
+  onPrimary: Colors.white, // Text/icons on primary
+  secondary: Colors.white,
+  onSecondary: Colors.black,
+  error: Colors.red,
+  onError: Colors.white,
+  surface: Colors.white,
+  onSurface: Colors.black,
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppbarViewmodel.instance.init();
@@ -25,9 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Vinamed - 07SI",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
-      ),
+      theme: ThemeData(colorScheme: lightColorScheme),
       home: Login(),
       routes: <String, WidgetBuilder>{
         NamedRoutes.home: (BuildContext context) => HomePage(),

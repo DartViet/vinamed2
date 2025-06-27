@@ -81,8 +81,11 @@ class UserProfileModel {
   }
 
   Future<void> save() async {
-    var item = await PocketBaseServer.instance.createItem(dbName, toJson());
-    print('UserProfileModel saved: ${item.id}');
+    await PocketBaseServer.instance.updateItem(
+      dbName,
+      UserProfileModel.instance.userId,
+      toJson(),
+    );
   }
 }
 

@@ -119,20 +119,40 @@
         "vi": "họ và tên",
         "zh": "全名"
     },
+    "userInfoFullNameNotValid": {
+        "en": "full name is not valid, it must not be empty",
+        "vi": "họ và tên không hợp lệ, không được để trống",
+        "zh": "全名无效，不能为空"
+    },
     "userInfoPhoneNumber": {
         "en": "phone number",
         "vi": "số điện thoại",
         "zh": "电话号码"
+    },
+    "userInfoPhoneNumberNotValid": {
+        "en": "phone number is not valid, it must not be empty and must be a valid phone number",
+        "vi": "số điện thoại không hợp lệ, không được để trống và phải là một số điện thoại hợp lệ",
+        "zh": "电话号码无效，不能为空且必须是有效的电话号码"
     },
     "userInfoAddress": {
         "en": "address",
         "vi": "địa chỉ",
         "zh": "地址"
     },
+    "userInfoAddressNotValid": {
+        "en": "address is not valid, it must not be empty",
+        "vi": "địa chỉ không hợp lệ, không được để trống",
+        "zh": "地址无效，不能为空"
+    },
     "userInfoDateOfBirth": {
         "en": "date of birth",
         "vi": "ngày sinh",
         "zh": "出生日期"
+    },
+    "userInfoDateOfBirthNotValid": {
+        "en": "date of birth is not valid, it must not be empty",
+        "vi": "ngày sinh không hợp lệ, không được để trống",
+        "zh": "出生日期无效，不能为空"
     },
     "userInfoGender": {
         "en": "gender",
@@ -154,20 +174,40 @@
         "vi": "ngày cấp",
         "zh": "签发日期"
     },
+    "userInfoDateIssuedNotValid": {
+        "en": "date issued is not valid, it must not be empty",
+        "vi": "ngày cấp không hợp lệ, không được để trống",
+        "zh": "签发日期无效，不能为空"
+    },
     "userInfoPlaceIssued": {
         "en": "place issued",
         "vi": "nơi cấp",
         "zh": "签发地点"
+    },
+    "userInfoPlaceIssuedNotValid": {
+        "en": "place issued is not valid, it must not be empty",
+        "vi": "nơi cấp không hợp lệ, không được để trống",
+        "zh": "签发地点无效，不能为空"
     },
     "userInfoCCCD": {
         "en": "CCCD number",
         "vi": "số CCCD",
         "zh": "CCCD号码"
     },
+    "userInfoCCCDNotValid": {
+        "en": "CCCD number is not valid, it must not be empty",
+        "vi": "số CCCD không hợp lệ, không được để trống",
+        "zh": "CCCD号码无效，不能为空"
+    },
     "userInfoCMND": {
         "en": "CMND number",
         "vi": "số CMND",
         "zh": "CMND号码"
+    },
+    "userInfoCMNDNotValid": {
+        "en": "CMND number is not valid, it must not be empty",
+        "vi": "số CMND không hợp lệ, không được để trống",
+        "zh": "CMND号码无效，不能为空"
     },
     "userInfoTitle": {
         "en": "user's information",
@@ -188,5 +228,15 @@
         "en": "scanning...",
         "vi": "đang quét...",
         "zh": "正在扫描..."
+    },
+    "save": {
+        "en": "save",
+        "vi": "lưu",
+        "zh": "保存"
+    },
+    "saveSuccess": {
+        "en": "save successfully",
+        "vi": "lưu thành công",
+        "zh": "保存成功"
     }
 }

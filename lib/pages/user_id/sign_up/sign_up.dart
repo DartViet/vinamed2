@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/email_regex.dart';
@@ -5,6 +7,7 @@ import 'package:ltdmed/goodies/language_service.dart';
 import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/user_id/sign_up/sign_up_modelview.dart';
+import 'package:ltdmed/widgets/fsnackbar.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -122,7 +125,6 @@ class SignUpState extends State<SignUp> {
                                 close: LanguageService.instance.close,
                               )
                               .then((value) {
-                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -131,19 +133,12 @@ class SignUpState extends State<SignUp> {
                                   ),
                                 );
                                 Navigator.pushNamed(
-                                  // ignore: use_build_context_synchronously
                                   context,
                                   NamedRoutes.userInfo,
                                 );
                               })
                               .catchError((error) {
-                                // ignore: use_build_context_synchronously
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('$error'),
-                                    duration: const Duration(seconds: 15),
-                                  ),
-                                );
+                                showFSnackBar(context, error.toString());
                               });
                         },
                         child: Text(LanguageService.instance.signUp),

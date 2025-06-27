@@ -55,10 +55,22 @@ class PocketBaseServer {
     pb.authStore.clear();
   }
 
-  Future<RecordModel> createItem(
+  Future<RecordModel> updateItem(
     String itemName,
+    String itemId,
     Map<String, dynamic> body,
   ) async {
-    return pb.collection(itemName).create(body: body);
+    return pb.collection(itemName).update(itemId, body: body);
+  }
+
+  Future<bool> resetPassword(String email) async {
+    try {
+      await pb.collection(usersCollection).requestPasswordReset(email);
+      print('Password reset email sent to $email');
+      return true;
+    } catch (e) {
+      print('Error sending password reset email: $e');
+      return false;
+    }
   }
 }

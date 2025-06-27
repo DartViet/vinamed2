@@ -8,6 +8,7 @@ import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/models/user/user_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/user_id/login/login_modelview.dart';
+import 'package:ltdmed/widgets/fsnackbar.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -133,12 +134,7 @@ class LoginState extends State<Login> {
                                     );
                                   })
                                   .catchError((error) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(error.toString()),
-                                        duration: Duration(seconds: 15),
-                                      ),
-                                    );
+                                    showFSnackBar(context, error.toString());
                                   });
                             },
                             child: Text(LanguageService.instance.signin),
@@ -150,6 +146,9 @@ class LoginState extends State<Login> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
+                          PocketBaseServer.instance.resetPassword(
+                            "darter.vn@gmail.com",
+                          );
                           // Handle forgot password logic
                         },
                         child: Text(

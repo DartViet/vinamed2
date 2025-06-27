@@ -77,4 +77,17 @@ class LangVar {
   static const String userInfoSelectDate = "userInfoSelectDate";
   static const String userInfoScanIDQRCode = "userInfoScanIDQRCode";
   static const String qrscanScanning = "qrscanScanning";
+  static const String userInfoFullNameNotValid = "userInfoFullNameNotValid";
+  static const String userInfoPhoneNumberNotValid =
+      "userInfoPhoneNumberNotValid";
+  static const String userInfoAddressNotValid = "userInfoAddressNotValid";
+  static const String userInfoDateOfBirthNotValid =
+      "userInfoDateOfBirthNotValid";
+  static const String userInfoDateIssuedNotValid = "userInfoDateIssuedNotValid";
+  static const String userInfoPlaceIssuedNotValid =
+      "userInfoPlaceIssuedNotValid";
+  static const String userInfoCCCDNotValid = "userInfoCCCDNotValid";
+  static const String userInfoCMNDNotValid = "userInfoCMNDNotValid";
+  static const String saveSuccess = "saveSuccess";
+  static const String save = "save";
 }
