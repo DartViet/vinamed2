@@ -6,9 +6,54 @@ on:
       - main # The branch name your are commit the new changes
 
 jobs:
+  pump-version:
+    runs-on: ubuntu-latest
+    name: Bump Version
+    outputs:
+      new_version: ${{ steps.bump.outputs.new_version }}
+      new_tag: ${{ steps.bump.outputs.new_tag }}
+    steps:
+      - name: git-checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump version
+        id: bump
+        run: |
+          # Read current version from pubspec.yaml
+          CURRENT_VERSION=$(grep '^version:' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Extract version parts (assuming format: major.minor.patch+build)
+          VERSION_PART=$(echo $CURRENT_VERSION | cut -d '+' -f 1)
+          BUILD_PART=$(echo $CURRENT_VERSION | cut -d '+' -f 2)
+          
+          # Increment build number
+          NEW_BUILD=$((BUILD_PART + 1))
+          NEW_VERSION="${VERSION_PART}+${NEW_BUILD}"
+          
+          echo "New version: $NEW_VERSION"
+          
+          # Update pubspec.yaml
+          sed -i "s/^version: .*/version: $NEW_VERSION/" pubspec.yaml
+          
+          # Set outputs
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "new_tag=v$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit version bump
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pubspec.yaml
+          git commit -m "Bump version to ${{ steps.bump.outputs.new_version }}" || echo "No changes to commit"
+          git push
+
   build-web:
     runs-on: ubuntu-latest
     name: Build Web and Push
+    needs: pump-version
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
@@ -39,6 +84,7 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     name: Build Android APK and Release
+    needs: pump-version
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
@@ -63,9 +109,8 @@ jobs:
       - name: Get version from pubspec.yaml
         id: version
         run: |
-          VERSION=$(grep '^version:' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          echo "TAG=v$VERSION" >> $GITHUB_OUTPUT
+          echo "VERSION=${{ needs.pump-version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          echo "TAG=${{ needs.pump-version.outputs.new_tag }}" >> $GITHUB_OUTPUT
 
       - name: Delete existing release if exists
         run: |
