@@ -10,9 +10,9 @@
         "zh": "登出"
     },
     "title": {
-        "en": "07SI - Online Medical Center",
-        "vi": "Trung tâm y tế trực tuyến 07SI",
-        "zh": "07SI - 在线医疗中心"
+        "en": "Vinamed - Online Medical Center",
+        "vi": "Trung tâm y tế trực tuyến Vinamed",
+        "zh": "Vinamed - 在线医疗中心"
     },
     "userInfo": {
         "en": "user's infomation",
@@ -280,8 +280,13 @@
         "zh": "提交"
     },
     "resetPasswordEmailSent": {
-        "en": "Reset password email sent",
-        "vi": "Thư điện tử đặt lại mật khẩu đã được gửi",
-        "zh": "重置密码电子邮件已发送"
+        "en": "Reset password email has been sent, if you do not receive it, please check your spam folder or try again.",
+        "vi": "Thư điện tử đặt lại mật khẩu đã được gửi, nếu bạn không nhận được, hãy kiểm tra thư mục spam hoặc thử lại.",
+        "zh": "重置密码的电子邮件已发送，如果您没有收到，请检查您的垃圾邮件文件夹或重试。"
+    },
+    "invalidQRCode": {
+        "en": "Invalid QR code",
+        "vi": "Mã QR không hợp lệ",
+        "zh": "无效的二维码"
     }
 }
