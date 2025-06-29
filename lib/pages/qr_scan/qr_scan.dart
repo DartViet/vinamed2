@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/citizen_info_service.dart';
-import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/models/user/user_profile_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

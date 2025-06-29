@@ -5,12 +5,13 @@ import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/drawer/drawer.dart';
 import 'package:ltdmed/goodies/citizen_info_service.dart';
 import 'package:ltdmed/goodies/email_regex.dart';
-import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/models/user/user_model.dart';
 import 'package:ltdmed/models/user/user_profile_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/user_info/user_info_modelview.dart';
 import 'package:ltdmed/widgets/fsnackbar.dart';
+import 'package:ltdmed/widgets/logo.dart';
 
 class UserInfo extends StatefulWidget {
   UserInfo({super.key});
@@ -110,7 +111,7 @@ class UserInfoState extends State<UserInfo> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 16,
                       children: [
-                        Icon(Icons.health_and_safety_sharp, size: 96, color: Theme.of(context).primaryColor),
+                        getLogo(context),
                         const SizedBox(height: 16),
                         Row(
                           children: [

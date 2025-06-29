@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/drawer/drawer.dart';
-import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home_viewmodel.dart';
 
@@ -36,10 +36,7 @@ class _HomePageState extends State<HomePage> {
       appBar: FAppbar(),
       drawer: FDrawer().getDrawer(context),
       body: ListenableBuilder(
-        listenable: Listenable.merge([
-          HomeViewModel.instance,
-          LanguageService.instance,
-        ]),
+        listenable: Listenable.merge([HomeViewModel.instance, LanguageService.instance]),
         builder: (context, child) {
           return Center(
             child: SizedBox(
@@ -51,37 +48,17 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 10,
                 padding: const EdgeInsets.all(10),
                 children: <Widget>[
-                  getCard(
-                    LanguageService.instance.userInfo,
-                    NamedRoutes.userInfo,
-                    Icons.person,
-                  ),
-                  getCard(
-                    LanguageService.instance.healthRecord,
-                    "/home",
-                    Icons.home,
-                  ),
-                  getCard(
-                    LanguageService.instance.healthRecord,
-                    "/healthRecord",
-                    Icons.health_and_safety,
-                  ),
-                  getCard(
-                    LanguageService.instance.admin,
-                    "/admin",
-                    Icons.admin_panel_settings,
-                  ),
+                  getCard(LanguageService.instance.userInfo, NamedRoutes.userInfo, Icons.person),
+                  getCard(LanguageService.instance.healthRecord, "/home", Icons.home),
+                  getCard(LanguageService.instance.healthRecord, "/healthRecord", Icons.health_and_safety),
+                  getCard(LanguageService.instance.admin, "/admin", Icons.admin_panel_settings),
                 ],
               ),
             ),
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment Age',
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {}, tooltip: 'Increment Age', child: const Icon(Icons.add)),
     );
   }
 
@@ -104,13 +81,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, namedRoute);
               },
-              child: Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
+              child: Center(child: Text(title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleSmall)),
             ),
           ],
         ),

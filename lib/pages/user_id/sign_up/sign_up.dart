@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/email_regex.dart';
-import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/user_id/sign_up/sign_up_modelview.dart';
 import 'package:ltdmed/widgets/fsnackbar.dart';
+import 'package:ltdmed/widgets/logo.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -43,7 +44,7 @@ class SignUpState extends State<SignUp> {
                     constraints: BoxConstraints(maxWidth: 500),
                     child: Column(
                       children: [
-                        Icon(Icons.health_and_safety_sharp, size: 96, color: Theme.of(context).primaryColor),
+                        getLogo(context),
                         const SizedBox(height: 16),
                         Center(child: Text(LanguageService.instance.signupCreateAccount, style: Theme.of(context).textTheme.titleLarge)),
 

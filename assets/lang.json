@@ -238,5 +238,50 @@
         "en": "save successfully",
         "vi": "lưu thành công",
         "zh": "保存成功"
+    },
+    "pleaseCheckYourEmail": {
+        "en": "please check your email to verify your account",
+        "vi": "vui lòng kiểm tra email của bạn để xác minh tài khoản",
+        "zh": "请检查您的电子邮件以验证您的帐户"
+    },
+    "cannotFindEmail": {
+        "en": "cannot find email?",
+        "vi": "không tìm thấy email?",
+        "zh": "找不到电子邮件?"
+    },
+    "ok": {
+        "en": "ok",
+        "vi": "chấp nhận",
+        "zh": "好的"
+    },
+    "emailVerificationSent": {
+        "en": "email verification sent",
+        "vi": "xác minh thư điện tử đã được gửi",
+        "zh": "电子邮件验证已发送"
+    },
+    "emailVerificationSentBody": {
+        "en": "A new verification email has been sent to your email address.",
+        "vi": "Một email xác minh mới đã được gửi đến địa chỉ thư điện tử của bạn.",
+        "zh": "一封新的验证电子邮件已发送到您的电子邮件地址。"
+    },
+    "sendVerificationEmail": {
+        "en": "send verification email",
+        "vi": "gửi email xác minh",
+        "zh": "发送验证电子邮件"
+    },
+    "enterEmailToResetPassword" : {
+        "en": "Enter your email to reset your password",
+        "vi": "Nhập email của bạn để đặt lại mật khẩu",
+        "zh": "输入您的电子邮件以重置密码"
+    },
+    "submit": {
+        "en": "submit",
+        "vi": "gửi",
+        "zh": "提交"
+    },
+    "resetPasswordEmailSent": {
+        "en": "Reset password email sent",
+        "vi": "Thư điện tử đặt lại mật khẩu đã được gửi",
+        "zh": "重置密码电子邮件已发送"
     }
 }

@@ -5,6 +5,8 @@ import 'package:ltdmed/appbar/appbar_viewmodel.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home.dart';
 import 'package:ltdmed/pages/qr_scan/qr_scan.dart';
+import 'package:ltdmed/pages/user_id/email_verification/email_verification.dart';
+import 'package:ltdmed/pages/user_id/forgot_password/forgot_password.dart';
 import 'package:ltdmed/pages/user_id/login/login.dart';
 import 'package:ltdmed/pages/user_id/sign_up/sign_up.dart';
 import 'package:ltdmed/pages/user_info/user_info.dart';
@@ -44,8 +46,9 @@ class MyApp extends StatelessWidget {
         NamedRoutes.userInfo: (BuildContext context) => UserInfo(),
         NamedRoutes.login: (BuildContext context) => const Login(),
         NamedRoutes.userSignup: (BuildContext context) => const SignUp(),
-        NamedRoutes.qrCodeScanner:
-            (BuildContext context) => const MobileScannerSimple(),
+        NamedRoutes.qrCodeScanner: (BuildContext context) => const MobileScannerSimple(),
+        NamedRoutes.verificationEmail: (BuildContext context) => const EmailVerification(),
+        NamedRoutes.forgotPassword: (BuildContext context) => const ForgotPassword(),
       },
     );
   }

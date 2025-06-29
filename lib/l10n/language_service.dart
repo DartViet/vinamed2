@@ -59,6 +59,15 @@ class LanguageService extends ChangeNotifier implements BaseModel {
   String userInfoCMNDNotValid = '';
   String save = '';
   String saveSuccess = '';
+  String pleaseCheckYourEmail = '';
+  String cannotFindEmail = '';
+  String ok = '';
+  String emailVerificationSent = '';
+  String emailVerificationSentBody = '';
+  String sendVerificationEmail = '';
+  String enterEmailToResetPassword = '';
+  String submit = '';
+  String resetPasswordEmailSent = '';
 
   @override
   Future<void> changeLang(String lang) {
@@ -84,97 +93,52 @@ class LanguageService extends ChangeNotifier implements BaseModel {
     signup = await LangUtility.getString(LangVar.signUp, lang);
     signin = await LangUtility.getString(LangVar.signIn, lang);
     forgotPassword = await LangUtility.getString(LangVar.forgotPassword, lang);
-    passwordNotCorrect = await LangUtility.getString(
-      LangVar.passwordNotCorrect,
-      lang,
-    );
+    passwordNotCorrect = await LangUtility.getString(LangVar.passwordNotCorrect, lang);
     welcome = await LangUtility.getString(LangVar.signinpageWelcome, lang);
     usernameNotValid = await LangUtility.getString(LangVar.emailNotValid, lang);
     signUp = await LangUtility.getString(LangVar.signUp, lang);
-    signupCreateAccount = await LangUtility.getString(
-      LangVar.signupCreateAccount,
-      lang,
-    );
-    confirmPassword = await LangUtility.getString(
-      LangVar.signupConfirmPassword,
-      lang,
-    );
+    signupCreateAccount = await LangUtility.getString(LangVar.signupCreateAccount, lang);
+    confirmPassword = await LangUtility.getString(LangVar.signupConfirmPassword, lang);
     emailNotValid = await LangUtility.getString(LangVar.emailNotValid, lang);
-    passwordNotValid = await LangUtility.getString(
-      LangVar.passwordNotValid,
-      lang,
-    );
-    confirmPasswordNotValid = await LangUtility.getString(
-      LangVar.confirmPasswordNotValid,
-      lang,
-    );
+    passwordNotValid = await LangUtility.getString(LangVar.passwordNotValid, lang);
+    confirmPasswordNotValid = await LangUtility.getString(LangVar.confirmPasswordNotValid, lang);
     close = await LangUtility.getString(LangVar.close, lang);
-    userAccountCreated = await LangUtility.getString(
-      LangVar.userAccountCreated,
-      lang,
-    );
+    userAccountCreated = await LangUtility.getString(LangVar.userAccountCreated, lang);
     fullName = await LangUtility.getString(LangVar.userInfoFullName, lang);
     cccdNumber = await LangUtility.getString(LangVar.userInfoCCCD, lang);
-    phoneNumber = await LangUtility.getString(
-      LangVar.userInfoPhoneNumber,
-      lang,
-    );
+    phoneNumber = await LangUtility.getString(LangVar.userInfoPhoneNumber, lang);
     address = await LangUtility.getString(LangVar.userInfoAddress, lang);
     cmndNumber = await LangUtility.getString(LangVar.userInfoCMND, lang);
-    dateOfBirth = await LangUtility.getString(
-      LangVar.userInfoDateOfBirth,
-      lang,
-    );
+    dateOfBirth = await LangUtility.getString(LangVar.userInfoDateOfBirth, lang);
     dateOfIssue = await LangUtility.getString(LangVar.userInfoDateIssued, lang);
-    placeOfIssue = await LangUtility.getString(
-      LangVar.userInfoPlaceIssued,
-      lang,
-    );
+    placeOfIssue = await LangUtility.getString(LangVar.userInfoPlaceIssued, lang);
     gender = await LangUtility.getString(LangVar.userInfoGender, lang);
     userInfoTitle = await LangUtility.getString(LangVar.userInfo, lang);
     male = await LangUtility.getString(LangVar.male, lang);
     female = await LangUtility.getString(LangVar.female, lang);
     selecteDate = await LangUtility.getString(LangVar.userInfoSelectDate, lang);
     title = await LangUtility.getString(LangVar.homePage, lang);
-    userInfoScanIDQRCode = await LangUtility.getString(
-      LangVar.userInfoScanIDQRCode,
-      lang,
-    );
+    userInfoScanIDQRCode = await LangUtility.getString(LangVar.userInfoScanIDQRCode, lang);
     qrscanScanning = await LangUtility.getString(LangVar.qrscanScanning, lang);
-    userInfoFullNameNotValid = await LangUtility.getString(
-      LangVar.userInfoFullNameNotValid,
-      lang,
-    );
-    userInfoPhoneNumberNotValid = await LangUtility.getString(
-      LangVar.userInfoPhoneNumberNotValid,
-      lang,
-    );
-    userInfoAddressNotValid = await LangUtility.getString(
-      LangVar.userInfoAddressNotValid,
-      lang,
-    );
-    userInfoDateOfBirthNotValid = await LangUtility.getString(
-      LangVar.userInfoDateOfBirthNotValid,
-      lang,
-    );
-    userInfoDateIssuedNotValid = await LangUtility.getString(
-      LangVar.userInfoDateIssuedNotValid,
-      lang,
-    );
-    userInfoPlaceIssuedNotValid = await LangUtility.getString(
-      LangVar.userInfoPlaceIssuedNotValid,
-      lang,
-    );
-    userInfoCCCDNotValid = await LangUtility.getString(
-      LangVar.userInfoCCCDNotValid,
-      lang,
-    );
-    userInfoCMNDNotValid = await LangUtility.getString(
-      LangVar.userInfoCMNDNotValid,
-      lang,
-    );
+    userInfoFullNameNotValid = await LangUtility.getString(LangVar.userInfoFullNameNotValid, lang);
+    userInfoPhoneNumberNotValid = await LangUtility.getString(LangVar.userInfoPhoneNumberNotValid, lang);
+    userInfoAddressNotValid = await LangUtility.getString(LangVar.userInfoAddressNotValid, lang);
+    userInfoDateOfBirthNotValid = await LangUtility.getString(LangVar.userInfoDateOfBirthNotValid, lang);
+    userInfoDateIssuedNotValid = await LangUtility.getString(LangVar.userInfoDateIssuedNotValid, lang);
+    userInfoPlaceIssuedNotValid = await LangUtility.getString(LangVar.userInfoPlaceIssuedNotValid, lang);
+    userInfoCCCDNotValid = await LangUtility.getString(LangVar.userInfoCCCDNotValid, lang);
+    userInfoCMNDNotValid = await LangUtility.getString(LangVar.userInfoCMNDNotValid, lang);
     save = await LangUtility.getString(LangVar.save, lang);
     saveSuccess = await LangUtility.getString(LangVar.saveSuccess, lang);
+    pleaseCheckYourEmail = await LangUtility.getString(LangVar.pleaseCheckYourEmail, lang);
+    cannotFindEmail = await LangUtility.getString(LangVar.cannotFindEmail, lang);
+    ok = await LangUtility.getString(LangVar.ok, lang);
+    emailVerificationSent = await LangUtility.getString(LangVar.emailVerificationSent, lang);
+    emailVerificationSentBody = await LangUtility.getString(LangVar.emailVerificationSentBody, lang);
+    sendVerificationEmail = await LangUtility.getString(LangVar.sendVerificationEmail, lang);
+    enterEmailToResetPassword = await LangUtility.getString(LangVar.enterEmailToResetPassword, lang);
+    submit = await LangUtility.getString(LangVar.submit, lang);
+    resetPasswordEmailSent = await LangUtility.getString(LangVar.resetPasswordEmailSent, lang);
 
     notifyListeners();
   }

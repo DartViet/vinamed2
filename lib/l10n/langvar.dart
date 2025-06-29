@@ -78,16 +78,22 @@ class LangVar {
   static const String userInfoScanIDQRCode = "userInfoScanIDQRCode";
   static const String qrscanScanning = "qrscanScanning";
   static const String userInfoFullNameNotValid = "userInfoFullNameNotValid";
-  static const String userInfoPhoneNumberNotValid =
-      "userInfoPhoneNumberNotValid";
+  static const String userInfoPhoneNumberNotValid = "userInfoPhoneNumberNotValid";
   static const String userInfoAddressNotValid = "userInfoAddressNotValid";
-  static const String userInfoDateOfBirthNotValid =
-      "userInfoDateOfBirthNotValid";
+  static const String userInfoDateOfBirthNotValid = "userInfoDateOfBirthNotValid";
   static const String userInfoDateIssuedNotValid = "userInfoDateIssuedNotValid";
-  static const String userInfoPlaceIssuedNotValid =
-      "userInfoPlaceIssuedNotValid";
+  static const String userInfoPlaceIssuedNotValid = "userInfoPlaceIssuedNotValid";
   static const String userInfoCCCDNotValid = "userInfoCCCDNotValid";
   static const String userInfoCMNDNotValid = "userInfoCMNDNotValid";
   static const String saveSuccess = "saveSuccess";
   static const String save = "save";
+  static const String pleaseCheckYourEmail = "pleaseCheckYourEmail";
+  static const String cannotFindEmail = "cannotFindEmail";
+  static const String ok = "ok";
+  static const String emailVerificationSent = "emailVerificationSent";
+  static const String emailVerificationSentBody = "emailVerificationSentBody";
+  static const String sendVerificationEmail = "sendVerificationEmail";
+  static const String enterEmailToResetPassword = "enterEmailToResetPassword";
+  static const String submit = "submit";
+  static const String resetPasswordEmailSent = "resetPasswordEmailSent";
 }

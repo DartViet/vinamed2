@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/email_regex.dart';
-import 'package:ltdmed/goodies/language_service.dart';
+import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/models/user/user_model.dart';
 import 'package:ltdmed/models/user/user_profile_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/user_id/login/login_modelview.dart';
 import 'package:ltdmed/widgets/fsnackbar.dart';
+import 'package:ltdmed/widgets/logo.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 class Login extends StatefulWidget {
@@ -32,13 +33,9 @@ class LoginState extends State<Login> {
     if (UserModel.instance.email.isNotEmpty) {
       // If the user is already logged in, redirect to home
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (UserProfileModel.instance.userId.isEmpty) {
-          print("User profile not found, redirecting to user info page.");
-          // If user profile is not set, redirect to user info page
-          Navigator.pushReplacementNamed(context, NamedRoutes.userInfo);
+        if (!UserModel.instance.verified) {
+          Navigator.pushReplacementNamed(context, NamedRoutes.verificationEmail);
         } else {
-          print("User profile found, redirecting to home page.");
-          // If user profile is set, redirect to home page
           Navigator.pushReplacementNamed(context, NamedRoutes.home);
         }
       });
@@ -59,7 +56,7 @@ class LoginState extends State<Login> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.health_and_safety_sharp, size: 96, color: Theme.of(context).primaryColor),
+                        getLogo(context),
                         const SizedBox(height: 16),
                         Text(LanguageService.instance.welcome, style: Theme.of(context).textTheme.titleSmall),
                         const SizedBox(height: 8),
@@ -113,6 +110,11 @@ class LoginState extends State<Login> {
                                         password: passwordFormFieldController.text.trim(),
                                       )
                                       .then((value) {
+                                        if (!UserModel.instance.verified) {
+                                          Navigator.pushNamed(context, NamedRoutes.verificationEmail);
+                                          return;
+                                        }
+
                                         UserProfileModel.instance
                                             .getUserProfile(value.record.id)
                                             .then((_) {
@@ -153,12 +155,12 @@ class LoginState extends State<Login> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              // PocketBaseServer.instance.resetPassword("darter.vn@gmail.com");
-                              // Handle forgot password logic
+                              Navigator.pushReplacementNamed(context, NamedRoutes.forgotPassword);
                             },
                             child: Text("${LanguageService.instance.forgotPassword}?", style: TextStyle(fontSize: 12)),
                           ),
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                       ],
                     ),
                   ),
