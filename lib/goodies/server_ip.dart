@@ -73,10 +73,6 @@ class PocketBaseServer {
   }
 
   Future<void> verifyEmail() async {
-    try {
-      //await pb.collection(usersCollection).requestVerification(UserModel.instance.email);
-    } catch (e) {
-      // Handle error
-    }
+    await pb.collection(usersCollection).requestVerification(UserModel.instance.email);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:ltdmed/l10n/language_service.dart';
+
 class CitizenCardInfo {
   final String cccdNumber;
   final String cmndNumber;
@@ -30,7 +32,7 @@ class CitizenCardInfo {
     final parts = barcodeData.split('|');
 
     if (parts.length != 7) {
-      throw ArgumentError('Invalid barcode format. Expected 7 parts separated by "|"');
+      throw ArgumentError(LanguageService.instance.invalidQRCode);
     }
 
     _instance = CitizenCardInfo._(

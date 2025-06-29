@@ -68,6 +68,7 @@ class LanguageService extends ChangeNotifier implements BaseModel {
   String enterEmailToResetPassword = '';
   String submit = '';
   String resetPasswordEmailSent = '';
+  String invalidQRCode = '';
 
   @override
   Future<void> changeLang(String lang) {
@@ -139,6 +140,7 @@ class LanguageService extends ChangeNotifier implements BaseModel {
     enterEmailToResetPassword = await LangUtility.getString(LangVar.enterEmailToResetPassword, lang);
     submit = await LangUtility.getString(LangVar.submit, lang);
     resetPasswordEmailSent = await LangUtility.getString(LangVar.resetPasswordEmailSent, lang);
+    invalidQRCode = await LangUtility.getString(LangVar.invalidQRCode, lang);
 
     notifyListeners();
   }

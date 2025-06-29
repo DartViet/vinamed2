@@ -96,4 +96,5 @@ class LangVar {
   static const String enterEmailToResetPassword = "enterEmailToResetPassword";
   static const String submit = "submit";
   static const String resetPasswordEmailSent = "resetPasswordEmailSent";
+  static const String invalidQRCode = "invalidQRCode";
 }

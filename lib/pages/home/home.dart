@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/drawer/drawer.dart';
 import 'package:ltdmed/l10n/language_service.dart';
+import 'package:ltdmed/models/user/user_model.dart';
 import 'package:ltdmed/named_routes.dart';
 import 'package:ltdmed/pages/home/home_viewmodel.dart';
 
@@ -24,12 +25,10 @@ class _HomePageState extends State<HomePage> {
       return count;
     }
 
-    getGridWidth() {
-      double width = getGridCount() * 300;
-      if (width > MediaQuery.of(context).size.width) {
-        width = MediaQuery.of(context).size.width;
-      }
-      return width;
+    if (UserModel.instance.email.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, NamedRoutes.login);
+      });
     }
 
     return Scaffold(
@@ -38,9 +37,9 @@ class _HomePageState extends State<HomePage> {
       body: ListenableBuilder(
         listenable: Listenable.merge([HomeViewModel.instance, LanguageService.instance]),
         builder: (context, child) {
-          return Center(
-            child: SizedBox(
-              width: getGridWidth(),
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
               child: GridView.count(
                 childAspectRatio: 1.75,
                 crossAxisCount: getGridCount(),
@@ -49,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(10),
                 children: <Widget>[
                   getCard(LanguageService.instance.userInfo, NamedRoutes.userInfo, Icons.person),
-                  getCard(LanguageService.instance.healthRecord, "/home", Icons.home),
+                  getCard(LanguageService.instance.healthRecord, NamedRoutes.home, Icons.home),
                   getCard(LanguageService.instance.healthRecord, "/healthRecord", Icons.health_and_safety),
                   getCard(LanguageService.instance.admin, "/admin", Icons.admin_panel_settings),
                 ],

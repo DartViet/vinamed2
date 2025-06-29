@@ -37,10 +37,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Vinamed - 07SI",
+      title: "Vinamed",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: lightColorScheme),
-      home: Login(),
+      home: HomePage(),
       routes: <String, WidgetBuilder>{
         NamedRoutes.home: (BuildContext context) => HomePage(),
         NamedRoutes.userInfo: (BuildContext context) => UserInfo(),

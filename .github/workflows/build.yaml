@@ -67,14 +67,29 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           echo "TAG=v$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Delete existing release if exists
+        run: |
+          TAG="${{ steps.version.outputs.TAG }}"
+          # Check if release exists and delete it
+          if gh release view $TAG >/dev/null 2>&1; then
+            echo "Release $TAG exists, deleting..."
+            gh release delete $TAG --yes
+            # Also delete the tag
+            git push --delete origin $TAG || true
+          else
+            echo "Release $TAG does not exist, proceeding..."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.version.outputs.TAG }}
-          release_name: Release ${{ steps.version.outputs.TAG }}
+          name: Release ${{ steps.version.outputs.TAG }}
           body: |
             Release ${{ steps.version.outputs.TAG }}
             
@@ -82,6 +97,7 @@ jobs:
             - APK build from commit ${{ github.sha }}
           draft: false
           prerelease: false
+          files: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload APK to Release
         uses: actions/upload-release-asset@v1

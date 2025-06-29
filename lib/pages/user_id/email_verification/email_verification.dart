@@ -5,6 +5,7 @@ import 'package:ltdmed/appbar/appbar.dart';
 import 'package:ltdmed/goodies/server_ip.dart';
 import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/named_routes.dart';
+import 'package:ltdmed/widgets/fsnackbar.dart';
 import 'package:ltdmed/widgets/logo.dart';
 
 class EmailVerification extends StatefulWidget {
@@ -62,7 +63,7 @@ class EmailVerificationState extends State<EmailVerification> {
                           );
                         })
                         .catchError((error) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to send verification email: $error')));
+                          showFSnackBar(context, error.toString());
                         });
                   },
                   child: Text(LanguageService.instance.sendVerificationEmail),

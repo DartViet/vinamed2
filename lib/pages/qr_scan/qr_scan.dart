@@ -45,7 +45,7 @@ class _MobileScannerSimpleState extends State<MobileScannerSimple> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: FAppbar(),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: ListenableBuilder(
         listenable: LanguageService.instance,
         builder: (context, widget) {
@@ -57,7 +57,7 @@ class _MobileScannerSimpleState extends State<MobileScannerSimple> {
                 child: Container(
                   alignment: Alignment.bottomCenter,
                   height: 100,
-                  color: const Color.fromRGBO(0, 0, 0, 0.4),
+                  color: Theme.of(context).colorScheme.scrim,
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Expanded(child: Center(child: _barcodePreview(_barcode)))]),
                 ),
               ),

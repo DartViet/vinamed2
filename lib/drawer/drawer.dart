@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ltdmed/drawer/drawer_modelview.dart';
 import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/goodies/server_ip.dart';
+import 'package:ltdmed/models/user/user_model.dart';
+import 'package:ltdmed/models/user/user_profile_model.dart';
 import 'package:ltdmed/named_routes.dart';
 
 class FDrawer {
@@ -27,8 +29,8 @@ class FDrawer {
                   backgroundColor: Theme.of(context).primaryColor,
                   child: Icon(Icons.person, size: 50.0, color: Colors.white),
                 ),
-                accountName: const Text("longle"),
-                accountEmail: const Text("letrongthienlong@gmail.com"),
+                accountName: Text(UserProfileModel.instance.fullname),
+                accountEmail: Text(UserModel.instance.email),
               ),
               ListTile(
                 leading: const Icon(Icons.home),

@@ -126,14 +126,14 @@ class UserInfoState extends State<UserInfo> {
                                     return;
                                   }
 
-                                  UserProfileModel.instance.address = widget.addressController.text;
-                                  UserProfileModel.instance.fullname = widget.fullNameController.text;
-                                  UserProfileModel.instance.cccdnumber = widget.cccdNumberController.text;
-                                  UserProfileModel.instance.cmndnumber = widget.cmndNumberController.text;
+                                  UserProfileModel.instance.address = widget.addressController.text.trim();
+                                  UserProfileModel.instance.fullname = widget.fullNameController.text.trim();
+                                  UserProfileModel.instance.cccdnumber = widget.cccdNumberController.text.trim();
+                                  UserProfileModel.instance.cmndnumber = widget.cmndNumberController.text.trim();
                                   UserProfileModel.instance.dateofissued = issuedDate?.toIso8601String() ?? '';
                                   UserProfileModel.instance.dateofbirth = birthDate?.toIso8601String() ?? '';
                                   UserProfileModel.instance.gender = gender;
-                                  UserProfileModel.instance.phonenumber = widget.phoneNumberController.text;
+                                  UserProfileModel.instance.phonenumber = widget.phoneNumberController.text.trim();
                                   UserProfileModel.instance.userId = UserModel.instance.id;
                                   UserProfileModel.instance
                                       .save()
@@ -142,7 +142,7 @@ class UserInfoState extends State<UserInfo> {
                                         Navigator.pushNamed(context, NamedRoutes.home);
                                       })
                                       .catchError((error) {
-                                        showFSnackBar(context, "Error saving user profile: $error");
+                                        showFSnackBar(context, "$error");
                                         return;
                                       });
                                 }

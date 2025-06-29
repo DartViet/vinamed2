@@ -6,6 +6,7 @@ import 'package:ltdmed/goodies/email_regex.dart';
 import 'package:ltdmed/goodies/server_ip.dart' show PocketBaseServer;
 import 'package:ltdmed/l10n/language_service.dart';
 import 'package:ltdmed/named_routes.dart';
+import 'package:ltdmed/widgets/fsnackbar.dart';
 import 'package:ltdmed/widgets/logo.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -54,11 +55,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
                             PocketBaseServer.instance
                                 .resetPassword(emailFormFieldController.text.trim().toLowerCase())
                                 .then((_) {
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(LanguageService.instance.resetPasswordEmailSent)));
+                                  showFSnackBar(context, LanguageService.instance.resetPasswordEmailSent);
                                   Navigator.pushReplacementNamed(context, NamedRoutes.login);
                                 })
                                 .catchError((error) {
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+                                  showFSnackBar(context, error.toString());
                                 });
                           }
                         },
